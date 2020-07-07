@@ -88,6 +88,7 @@ function colorImage() {
   // Iterate over data.  Data is RGBA matrix so go by +=4 to get to next pixel data.
   let selectedColor = baseCoat[num]
   console.log(selectedColor)
+  console.log(baseCoat[num])
 
   for (i = 0; i < id.data.length; i += 4) {
     if (id.data[i] == 255 && id.data[i + 1] == 255 &&  id.data[i + 2] == 0) {

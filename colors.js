@@ -80,7 +80,7 @@ const baseCoat = [
     },
     {
         id: "seafoam",
-        base: [88, 29, 188],
+        base: [88, 229, 192],
         shade: [52, 179, 186],
         line: [33, 121, 173],
     },
