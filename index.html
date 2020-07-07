@@ -37,10 +37,13 @@
 
 console.log(baseCoat)
 let num;
+let markNum;
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");    
 let id;
 
+const spotty = "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a65b7269-062e-43df-ba67-7d4dbb2fcc23/de0syh2-6ec35ca0-3e1d-4ee5-af55-90442ecfbeed.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvYTY1YjcyNjktMDYyZS00M2RmLWJhNjctN2Q0ZGJiMmZjYzIzXC9kZTBzeWgyLTZlYzM1Y2EwLTNlMWQtNGVlNS1hZjU1LTkwNDQyZWNmYmVlZC5wbmcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.nBJpox6LANbUrMeJeWqn1-z9oGsGclVZZoq8-JsWynU"
+const smallStripe = "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a65b7269-062e-43df-ba67-7d4dbb2fcc23/de0tl0j-51987eeb-323e-47da-b1fa-a18acaeeff0c.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvYTY1YjcyNjktMDYyZS00M2RmLWJhNjctN2Q0ZGJiMmZjYzIzXC9kZTB0bDBqLTUxOTg3ZWViLTMyM2UtNDdkYS1iMWZhLWExOGFjYWVlZmYwYy5wbmcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.nFXBWmkBjrm7JpIV2CmBAUj-LRz6Yylimer_4AEjZRs"
 
 window.onload = function(){
   combineImage();
@@ -48,16 +51,23 @@ window.onload = function(){
 }
 
 function combineImage() {
+    randomMarking();
+    
     var img1 = new Image();
     
     img1.onload = function(){ alterImage(this); }
     img1.src = "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a65b7269-062e-43df-ba67-7d4dbb2fcc23/de0sy38-dcb4bbe5-fb08-44d2-9ee8-3ae98cd57114.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvYTY1YjcyNjktMDYyZS00M2RmLWJhNjctN2Q0ZGJiMmZjYzIzXC9kZTBzeTM4LWRjYjRiYmU1LWZiMDgtNDRkMi05ZWU4LTNhZTk4Y2Q1NzExNC5wbmcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.PzMFlo1WkjhKZVdP11o4_Ml5iMHpFMRmXGNk50OlZ2s"
     img1.crossOrigin = "Anonymous";
-
+    console.log(markNum + " marking")
+    
     var img2 = new Image();
     
     img2.onload = function(){ alterImage(this); }
-    img2.src = "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a65b7269-062e-43df-ba67-7d4dbb2fcc23/de0syh2-6ec35ca0-3e1d-4ee5-af55-90442ecfbeed.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvYTY1YjcyNjktMDYyZS00M2RmLWJhNjctN2Q0ZGJiMmZjYzIzXC9kZTBzeWgyLTZlYzM1Y2EwLTNlMWQtNGVlNS1hZjU1LTkwNDQyZWNmYmVlZC5wbmcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.nBJpox6LANbUrMeJeWqn1-z9oGsGclVZZoq8-JsWynU"
+    if (markNum == 1) {
+      img2.src = spotty;
+    }else {
+      img2.src = smallStripe;
+    }
     img2.crossOrigin = "Anonymous";
 }
 
@@ -66,7 +76,6 @@ function alterImage(imageObj){
   let image = imageObj;
   ctx.drawImage(imageObj, 0, 0);
   id = ctx.getImageData(0, 0, canvas.width, canvas.height);
-  console.log(id)
   colorImage();
 }
 
@@ -75,7 +84,6 @@ function colorImage() {
   randomColor();
   console.log(num)
   color = colors[num];
-  console.log(id.data.length)
 
   // Iterate over data.  Data is RGBA matrix so go by +=4 to get to next pixel data.
   let selectedColor = baseCoat[num]
@@ -104,14 +112,16 @@ function colorImage() {
         id.data[i + 2] = selectedColor.base[2];
     }
   }
-  console.log(id);
   ctx.putImageData(id, 0, 0);
 }
 
 function randomColor() {
     num = Math.floor(Math.random() * colors.length);
-    console.log(colors[num]);
-    console.log(num);
+}
+
+function randomMarking() {
+    markNum = Math.floor(Math.random() * 2) + 1;
+    console.log("marking: " + markNum);
 }
 
         </script>
