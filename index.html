@@ -67,12 +67,10 @@ const smallStripe = "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a
 
 window.onload = function(){
   combineImage();
-  colorImage();
 }
 
 function combineImage() {
     randomMarking();
-    
     var img1 = new Image();
     
     img1.onload = function(){ alterImage(this); }
@@ -111,13 +109,11 @@ function alterImage(imageObj){
 function colorImage() {
   if (id !== undefined) {
   randomColor();
-  console.log(num)
   color = colors[num];
 
   // Iterate over data.  Data is RGBA matrix so go by +=4 to get to next pixel data.
   let selectedColor = baseCoat[num]
   console.log(selectedColor)
-  console.log(baseCoat[num])
 
   for (i = 0; i < id.data.length; i += 4) {
     if (id.data[i] == 255 && id.data[i + 1] == 255 &&  id.data[i + 2] == 0) {
@@ -156,7 +152,6 @@ function randomMarking() {
 
 $("#newcolor").on("click", function() {
   combineImage();
-  colorImage();
 })
         </script>
   </body>
