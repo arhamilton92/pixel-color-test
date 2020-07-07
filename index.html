@@ -60,6 +60,7 @@ function combineImage() {
     img1.crossOrigin = "Anonymous";
     console.log(markNum + " marking")
     
+    if (markNum !== 0) {
     var img2 = new Image();
     
     img2.onload = function(){ alterImage(this); }
@@ -69,6 +70,7 @@ function combineImage() {
       img2.src = smallStripe;
     }
     img2.crossOrigin = "Anonymous";
+    }
 }
 
 
@@ -80,7 +82,7 @@ function alterImage(imageObj){
 }
 
 function colorImage() {
-  id = ctx.getImageData(0, 0, canvas.width, canvas.height)
+  if (id !== undefined) {
   randomColor();
   console.log(num)
   color = colors[num];
@@ -115,14 +117,14 @@ function colorImage() {
   }
   ctx.putImageData(id, 0, 0);
 }
+}
 
 function randomColor() {
     num = Math.floor(Math.random() * colors.length);
 }
 
 function randomMarking() {
-    markNum = Math.floor(Math.random() * 2) + 1;
-    console.log("marking: " + markNum);
+    markNum = Math.floor(Math.random() * 3);
 }
 
         </script>
