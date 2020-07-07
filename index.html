@@ -66,8 +66,15 @@ function combineImage() {
     img2.onload = function(){ alterImage(this); }
     if (markNum == 1) {
       img2.src = spotty;
-    }else {
+    }if (markNum == 2) {
       img2.src = smallStripe;
+    }
+    if (markNum == 3) {
+      var img3 = new Image();
+      img3.onload = function(){ alterImage(this); }
+      img2.src = spotty;
+      img3.src = smallStripe;
+      img3.crossOrigin = "Anonymous";
     }
     img2.crossOrigin = "Anonymous";
     }
@@ -124,7 +131,7 @@ function randomColor() {
 }
 
 function randomMarking() {
-    markNum = Math.floor(Math.random() * 3);
+    markNum = Math.floor(Math.random() * 4);
 }
 
         </script>
