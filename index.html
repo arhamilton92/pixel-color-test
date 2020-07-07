@@ -37,79 +37,83 @@
 
 console.log(baseCoat)
 let num;
+const canvas = document.getElementById("myCanvas");
+const ctx = canvas.getContext("2d");    
+let id;
 
-        window.onload = function(){
-            var img = new Image();
-            
-            img.onload = function(){ alterImage(this); }
-            img.src = document.getElementById( "origImg" ).src;
-            img.crossOrigin = "Anonymous";
-        }
+
+window.onload = function(){
+  combineImage();
+  colorImage();
+}
+
+function combineImage() {
+    var img1 = new Image();
     
-        function alterImage(imageObj){
-            var canvas = document.getElementById("myCanvas");
-            var ctx= canvas.getContext("2d");
-            
-            ctx.drawImage(imageObj, 0, 0);
-            var id= ctx.getImageData(0, 0, canvas.width, canvas.height);
-            console.log(id)
-            
-            randomColor();
-            console.log(num)
-            color = colors[num];
+    img1.onload = function(){ alterImage(this); }
+    img1.src = "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a65b7269-062e-43df-ba67-7d4dbb2fcc23/de0sy38-dcb4bbe5-fb08-44d2-9ee8-3ae98cd57114.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvYTY1YjcyNjktMDYyZS00M2RmLWJhNjctN2Q0ZGJiMmZjYzIzXC9kZTBzeTM4LWRjYjRiYmU1LWZiMDgtNDRkMi05ZWU4LTNhZTk4Y2Q1NzExNC5wbmcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.PzMFlo1WkjhKZVdP11o4_Ml5iMHpFMRmXGNk50OlZ2s"
+    img1.crossOrigin = "Anonymous";
 
-            // Iterate over data.  Data is RGBA matrix so go by +=4 to get to next pixel data.
-            let selectedColor = baseCoat[num]
-            console.log(selectedColor)
+    var img2 = new Image();
+    
+    img2.onload = function(){ alterImage(this); }
+    img2.src = "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a65b7269-062e-43df-ba67-7d4dbb2fcc23/de0syh2-6ec35ca0-3e1d-4ee5-af55-90442ecfbeed.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvYTY1YjcyNjktMDYyZS00M2RmLWJhNjctN2Q0ZGJiMmZjYzIzXC9kZTBzeWgyLTZlYzM1Y2EwLTNlMWQtNGVlNS1hZjU1LTkwNDQyZWNmYmVlZC5wbmcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.nBJpox6LANbUrMeJeWqn1-z9oGsGclVZZoq8-JsWynU"
+    img2.crossOrigin = "Anonymous";
+}
 
 
-            for (i = 0; i < id.data.length; i += 4) {
-                // Is this pixel *red* ?
-                if (id.data[i] == 255 && id.data[i + 1] == 255 &&  id.data[i + 2] == 0) {
-                    id.data[i] = selectedColor.base[0];
-                    id.data[i + 1] = selectedColor.base[1];
-                    id.data[i + 2] = selectedColor.base[2];
-                }
-                if (id.data[i] == 255 && id.data[i + 1] == 0 &&  id.data[i + 2] == 0) {
-                    id.data[i] = selectedColor.line[0];
-                    id.data[i + 1] = selectedColor.line[1];
-                    id.data[i + 2] = selectedColor.line[2];
-                    
-                }
-                if (id.data[i] == 0 && id.data[i + 1] == 134 &&  id.data[i + 2] == 255) {
-                    id.data[i] = selectedColor.shade[0];
-                    id.data[i + 1] = selectedColor.shade[1];
-                    id.data[i + 2] = selectedColor.shade[2];
-                }
-            }
-            function randomColor() {
-                num = Math.floor(Math.random() * colors.length);
-                console.log(colors[num]);
-                console.log(num);
-            }
-            // for (i = 0; i < id.data.length; i += 4) {
-            //     // Is this pixel *red* ?
-            //     if (id.data[i] == 255 && id.data[i + 1] == 255 &&  id.data[i + 2] == 0) {
-            //         id.data[i] = 255;
-            //         id.data[i + 1] = 255;
-            //         id.data[i + 2] = 255;
-            //     }
-            //     if (id.data[i] == 255 && id.data[i + 1] == 0 &&  id.data[i + 2] == 0) {
-            //         id.data[i] = 173;
-            //         id.data[i + 1] = 166;
-            //         id.data[i + 2] = 178;
-            //     }
-            //     if (id.data[i] == 0 && id.data[i + 1] == 134 &&  id.data[i + 2] == 255) {
-            //         id.data[i] = 211;
-            //         id.data[i + 1] = 213;
-            //         id.data[i + 2] = 219;
-            //     }
-            // }
+function alterImage(imageObj){     
+  let image = imageObj;
+  ctx.drawImage(imageObj, 0, 0);
+  id = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  console.log(id)
+  colorImage();
+}
 
+function colorImage() {
+  id = ctx.getImageData(0, 0, canvas.width, canvas.height)
+  randomColor();
+  console.log(num)
+  color = colors[num];
+  console.log(id.data.length)
 
-            // redraw your altered data on the canvas.
-            ctx.putImageData(id, 0, 0);
-        }
+  // Iterate over data.  Data is RGBA matrix so go by +=4 to get to next pixel data.
+  let selectedColor = baseCoat[num]
+  console.log(selectedColor)
+
+  for (i = 0; i < id.data.length; i += 4) {
+    if (id.data[i] == 255 && id.data[i + 1] == 255 &&  id.data[i + 2] == 0) {
+        id.data[i] = selectedColor.base[0];
+        id.data[i + 1] = selectedColor.base[1];
+        id.data[i + 2] = selectedColor.base[2];
+    }
+    if (id.data[i] == 255 && id.data[i + 1] == 0 &&  id.data[i + 2] == 0) {
+        id.data[i] = selectedColor.line[0];
+        id.data[i + 1] = selectedColor.line[1];
+        id.data[i + 2] = selectedColor.line[2];
+        
+    }
+    if (id.data[i] == 0 && id.data[i + 1] == 134 &&  id.data[i + 2] == 255) {
+        id.data[i] = selectedColor.shade[0];
+        id.data[i + 1] = selectedColor.shade[1];
+        id.data[i + 2] = selectedColor.shade[2];
+    }
+    if (id.data[i] == 0 && id.data[i + 1] == 255 &&  id.data[i + 2] == 0) {
+        id.data[i] = selectedColor.base[0];
+        id.data[i + 1] = selectedColor.base[1];
+        id.data[i + 2] = selectedColor.base[2];
+    }
+  }
+  console.log(id);
+  ctx.putImageData(id, 0, 0);
+}
+
+function randomColor() {
+    num = Math.floor(Math.random() * colors.length);
+    console.log(colors[num]);
+    console.log(num);
+}
+
         </script>
   </body>
 </html>
