@@ -53,67 +53,172 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="colors.js"></script>
+<script type="text/javascript" src="images.js"></script>
 <script type="text/javascript">
 
-console.log(baseCoat)
+// VARIABLES (DATA) ==================================================================================
+// ===================================================================================================
 let num;
 let markNum;
+let markType;
+let markTypeNum;
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");    
 let id;
+var img1 = new Image();
+var img2 = new Image();
+var img3 = new Image();
+// ===================================================================================================^
 
-const spotty = "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a65b7269-062e-43df-ba67-7d4dbb2fcc23/de0syh2-6ec35ca0-3e1d-4ee5-af55-90442ecfbeed.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvYTY1YjcyNjktMDYyZS00M2RmLWJhNjctN2Q0ZGJiMmZjYzIzXC9kZTBzeWgyLTZlYzM1Y2EwLTNlMWQtNGVlNS1hZjU1LTkwNDQyZWNmYmVlZC5wbmcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.nBJpox6LANbUrMeJeWqn1-z9oGsGclVZZoq8-JsWynU"
-const smallStripe = "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a65b7269-062e-43df-ba67-7d4dbb2fcc23/de0tl0j-51987eeb-323e-47da-b1fa-a18acaeeff0c.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvYTY1YjcyNjktMDYyZS00M2RmLWJhNjctN2Q0ZGJiMmZjYzIzXC9kZTB0bDBqLTUxOTg3ZWViLTMyM2UtNDdkYS1iMWZhLWExOGFjYWVlZmYwYy5wbmcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.nFXBWmkBjrm7JpIV2CmBAUj-LRz6Yylimer_4AEjZRs"
+//
 
-window.onload = function(){
-  combineImage();
+// FUNCTION DEFINITIONS ==============================================================================
+// ===================================================================================================
+// Decides the nmumber of markings ========================
+function numberOfMarkings() {
+  markNum = Math.floor(Math.random() * 5);
+  console.log(markNum + " markings")
 }
+// ========================================================^
 
+
+// Random number for selecting marking type ===============
+function randomMarking() {
+    markTypeNum = Math.floor(Math.random() * 4) + 1;
+}
+// ========================================================^
+
+
+// Random number for selecting marking type ===============
+function extraMarkings(img) {
+  if (markNum = 2) {
+    applyMarking2(img);
+  } }
+// ========================================================^
+
+
+// Sets the image source. =================================
+// If there are markings, 
+// calls the appropriate functions.
 function combineImage() {
-    randomMarking();
-    var img1 = new Image();
-    
     img1.onload = function(){ alterImage(this); }
-    img1.src = "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a65b7269-062e-43df-ba67-7d4dbb2fcc23/de0tufi-6e1282e1-edcb-406f-a08c-58645164fdb6.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvYTY1YjcyNjktMDYyZS00M2RmLWJhNjctN2Q0ZGJiMmZjYzIzXC9kZTB0dWZpLTZlMTI4MmUxLWVkY2ItNDA2Zi1hMDhjLTU4NjQ1MTY0ZmRiNi5wbmcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.r2ucqRn8XPcmCQdrarr6-cGdO38F0YlYzpGYzzayBQQ"
-    img1.crossOrigin = "Anonymous";
-    console.log(markNum + " marking")
-    
-    if (markNum !== 0) {
-    var img2 = new Image();
-    
     img2.onload = function(){ alterImage(this); }
-    if (markNum == 1) {
-      img2.src = spotty;
+    img3.onload = function(){ alterImage(this); }
+    if (markNum > 3) {
+      markNum = 0;
+    }
+    if (markNum == 0) {
+      img1.src = basic;
+      console.log("basic source")
+    }if (markNum == 1) {
+      applyMarking(img1);
     }if (markNum == 2) {
-      img2.src = smallStripe;
+      applyMarking(img1);
+      extraMarkings(img2);
+    }if (markNum == 3) {
+      applyMarking(img1);
+      extraMarkings(img2);
+      extraMarkings(img3);
     }
-    if (markNum == 3) {
-      var img3 = new Image();
-      img3.onload = function(){ alterImage(this); }
-      img2.src = spotty;
-      img3.src = smallStripe;
-      img3.crossOrigin = "Anonymous";
-    }
+    img1.crossOrigin = "Anonymous";
     img2.crossOrigin = "Anonymous";
-    }
-}
+    img3.crossOrigin = "Anonymous"; }
+// ========================================================^
 
 
+// Draws the images, then calls coloring function =========
 function alterImage(imageObj){     
   let image = imageObj;
   ctx.drawImage(imageObj, 0, 0);
   id = ctx.getImageData(0, 0, canvas.width, canvas.height);
-  colorImage();
-}
+  colorImage(); }
+// ========================================================^
 
+
+// Sets img source to the first marking base image ========
+function applyMarking(img1) {
+  randomMarking();
+  if (markTypeNum == 1) {
+    img1.src = spotty;
+    markType = "spotty";
+    console.log("spotty base")
+  }if (markTypeNum == 2) {
+    img1.src = smallStripe;
+    markType = "smallStripe";
+    console.log("stripe base")
+  }if (markTypeNum == 3) {
+    img1.src = trio;
+    markType = "trio";
+    console.log("trio base")
+  }if (markTypeNum == 4) {
+    randomMarking() 
+    if (markTypeNum < 3) {
+      img1.src = speck;
+      markType = "speck";
+      console.log("speck base")
+    } else {
+      img1.src = doubleSpeck;
+      markType = "double speck";
+      console.log("double speck base")
+    }
+  } }
+// ========================================================^
+
+
+// Overlays second marking over first base image ==========
+function applyMarking2(img) {
+  randomMarking();
+  if (markTypeNum == 1) {
+    img.src = spotty2;
+    markType = "spotty";
+    console.log("spotty 2")
+  }if (markTypeNum == 2) {
+    img.src = smallStripe2;
+    markType = "smallStripe";
+    console.log("stripe 2")
+  }if (markTypeNum == 3) {
+    img.src = helmet;
+    markType = "helmet 2";
+    console.log("helmet")
+  } if (markTypeNum == 4){
+      randomMarking();
+      if (markTypeNum < 3) {
+      img.src = speck2;
+      markType = "speck";
+      console.log("speck 2")
+      }else {
+      img.src = doubleSpeck2;
+      markType = "double speck";
+      console.log("double speck 2")
+      }
+  }
+  }
+// ========================================================^
+
+
+// Creates random numbers to select palettes ==============
+function randomColor() {
+    num = Math.floor(Math.random() * colors.length);
+    num2 = Math.floor(Math.random() * colors.length);
+    num3 = Math.floor(Math.random() * colors.length); }
+// ========================================================^
+
+
+// Uses the selected randomColor numbers ==================
+// to apply pallettes
 function colorImage() {
-  if (id !== undefined) {
   randomColor();
+  if (id !== undefined) {
   color = colors[num];
 
   // Iterate over data.  Data is RGBA matrix so go by +=4 to get to next pixel data.
   let selectedColor = baseCoat[num]
+  let selectedColor2 = baseCoat[num2]
+  let selectedColor3 = baseCoat[num3]
   console.log(selectedColor)
+  if (markType = "double speck") {
+  console.log("secondary: " + selectedColor2)
+  }
 
   for (i = 0; i < id.data.length; i += 4) {
     if (id.data[i] == 255 && id.data[i + 1] == 255 &&  id.data[i + 2] == 0) {
@@ -133,26 +238,59 @@ function colorImage() {
         id.data[i + 2] = selectedColor.shade[2];
     }
     if (id.data[i] == 0 && id.data[i + 1] == 255 &&  id.data[i + 2] == 0) {
-        id.data[i] = selectedColor.base[0];
-        id.data[i + 1] = selectedColor.base[1];
-        id.data[i + 2] = selectedColor.base[2];
+        id.data[i] = selectedColor2.base[0];
+        id.data[i + 1] = selectedColor2.base[1];
+        id.data[i + 2] = selectedColor2.base[2];
     }
+    if (id.data[i] == 0 && id.data[i + 1] == 102 &&  id.data[i + 2] == 108) {
+        id.data[i] = selectedColor2.line[0];
+        id.data[i + 1] = selectedColor2.line[1];
+        id.data[i + 2] = selectedColor2.line[2];
+    }
+    if (id.data[i] == 0 && id.data[i + 1] == 160 &&  id.data[i + 2] == 0) {
+        id.data[i] = selectedColor2.shade[0];
+        id.data[i + 1] = selectedColor2.shade[1];
+        id.data[i + 2] = selectedColor2.shade[2];
+    }
+    if (id.data[i] == 255 && id.data[i + 1] == 0 &&  id.data[i + 2] == 242) {
+        id.data[i] = selectedColor3.base[0];
+        id.data[i + 1] = selectedColor3.base[1];
+        id.data[i + 2] = selectedColor3.base[2];
+    }
+    if (id.data[i] == 125 && id.data[i + 1] == 9 &&  id.data[i + 2] == 119) {
+        id.data[i] = selectedColor3.line[0];
+        id.data[i + 1] = selectedColor3.line[1];
+        id.data[i + 2] = selectedColor3.line[2];
+    }
+    if (id.data[i] == 194 && id.data[i + 1] == 17 &&  id.data[i + 2] == 185) {
+        id.data[i] = selectedColor3.shade[0];
+        id.data[i + 1] = selectedColor3.shade[1];
+        id.data[i + 2] = selectedColor3.shade[2];
+    }
+    
   }
-  ctx.putImageData(id, 0, 0);
-}
-}
+  }
+  ctx.putImageData(id, 0, 0); }
+// ========================================================^
+// ===================================================================================================^
 
-function randomColor() {
-    num = Math.floor(Math.random() * colors.length);
-}
+//
 
-function randomMarking() {
-    markNum = Math.floor(Math.random() * 4);
+// EVENT LISTENERS ===================================================================================
+// ===================================================================================================
+window.onload = function(){
+  console.log("---------------------");
+  numberOfMarkings();
+  combineImage();
 }
 
 $("#newcolor").on("click", function() {
+  console.log("---------------------");
+  numberOfMarkings();
   combineImage();
 })
-        </script>
+// ===================================================================================================^
+
+    </script>
   </body>
 </html>
