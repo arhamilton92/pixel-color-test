@@ -90,6 +90,43 @@ const baseCoat = [
         shade: [100, 195, 229],
         line: [73,135, 220],
     },
+    {
+        id: "ash",
+        base: [98, 91, 99],
+        shade: [80, 69, 82],
+        line: [45, 43, 56],
+    },
+    {
+        id: "space",
+        base: [42, 47, 86],
+        shade: [25, 29, 61],
+        line: [14, 17, 43],
+    },
+    {
+        id: "chocolate",
+        base: [95, 27, 34],
+        shade: [73, 14, 39],
+        line: [52, 7, 26],
+    },
+    {
+        id: "squirrel",
+        base: [177, 70, 40],
+        shade: [165, 51, 38],
+        line: [129, 30, 18],
+
+    },
+    {
+        id: "matcha",
+        base: [153, 229,169],
+        shade: [92, 164, 138],
+        line: [44, 125, 112],
+    },
+    {
+        id: "indigo",
+        base: [104, 91, 216],
+        shade: [79, 64, 203],
+        line: [59, 45, 182],
+    },
 ]
 
-const colors = ["snow", "ivory", "vanilla", "peach", "dusty", "creamsicle", "jam", "bubblegum", "wine", "strawberry", "grape jelly", "lavender", "dandelion", "seafoam", "sky"]
+const colors = ["snow", "ivory", "vanilla", "peach", "dusty", "creamsicle", "jam", "bubblegum", "wine", "strawberry", "grape jelly", "lavender", "dandelion", "seafoam", "sky", "ash", "space", "chocolate", "squirrel", "matcha", "indigo"]
